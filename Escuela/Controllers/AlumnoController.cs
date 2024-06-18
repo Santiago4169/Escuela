@@ -75,7 +75,7 @@ namespace Escuela.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return StatusCode(500, new { error = ex.Message });
             }
 
         }
@@ -95,7 +95,7 @@ namespace Escuela.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return StatusCode(500, new { error = ex.Message });
             }
 
         }
