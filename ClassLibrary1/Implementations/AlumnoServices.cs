@@ -71,10 +71,16 @@ namespace Business.Implementations
         public void Agregar(AlumnoView AlumnoNuevo)
         {
             var existeAlumno = _dbcontext.Alumnos.Any(a => a.CodigoAlumno == AlumnoNuevo.CodigoAlumno);
+            var existeCarrera = _dbcontext.Alumnos.Any(a => a.CodigoCarrera1 == AlumnoNuevo.CodigoCarrera1);
 
             if (existeAlumno)
             {
                 throw new Exception("El alumno ya existe en la base de datos.");
+
+            }
+            if (!existeCarrera)
+            {
+                throw new Exception("El código de carrera no existe.");
             }
             var Alumno = new Alumno
             {
@@ -92,6 +98,12 @@ namespace Business.Implementations
         public void Editar(int CodigoAlumno, AlumnoView AlumnoEditar)
         {
             var alumno = _dbcontext.Alumnos.FirstOrDefault(a => a.CodigoAlumno == CodigoAlumno);
+            var existeCarrera = _dbcontext.Alumnos.Any(a => a.CodigoCarrera1 == AlumnoEditar.CodigoCarrera1);
+            
+            if (!existeCarrera)
+            {
+                throw new Exception("El código de carrera no existe.");
+            }
             if (alumno != null)
             {
                 alumno.CodigoAlumno = AlumnoEditar.CodigoAlumno;
